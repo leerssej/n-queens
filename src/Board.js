@@ -78,13 +78,29 @@
     // --------------------------------------------------------------
     //
     // test if a specific row on this board contains a conflict
-    hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+    hasRowConflictAt: function(rowIndex) { //checks if has Row Conflict at row Index
+      let result = this.get(rowIndex); //pull the row we provided 
+      let sumOf = result.reduce((sum, num) => sum + num); // sum of the row
+      if (sumOf > 1) { // if the row sum is greater than 1,
+        return true; // return true
+      } else { //else 
+        return false; // return false
+      }
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      
+      
+      let rowCount = this.attributes.n;// get number of arrays (rows) in array
+      
+      for (var i = 0; i < rowCount; i++) {// create a for loop for the number of arrays (rows)
+         if (this.hasRowConflictAt(i)) { // iterate throgh each array (row) run hasRowConflictAt function
+           return true; // if return value in hasRowConflictAt function === true, return true, and end the process 
+         }          
+      } 
+      return false; //if all rows are ok return false
+
     },
 
 
