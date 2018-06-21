@@ -60,20 +60,7 @@
         0 <= colIndex && colIndex < this.get('n')
       );
     },
-
-
-/*
-         _             _     _
-     ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
-    / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
-    \__ \ || (_| | |  | |_  | | | |  __/ | |  __/_
-    |___/\__\__,_|_|   \__| |_| |_|\___|_|  \___(_)
-
- */
-    /*=========================================================================
-    =                 TODO: fill in these Helper Functions                    =
-    =========================================================================*/
-
+    
     // ROWS - run from left to right
     // --------------------------------------------------------------
     //
@@ -90,17 +77,13 @@
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      
-      
-      let rowCount = this.attributes.n;// get number of arrays (rows) in array
-      
-      for (var i = 0; i < rowCount; i++) {// create a for loop for the number of arrays (rows)
-         if (this.hasRowConflictAt(i)) { // iterate throgh each array (row) run hasRowConflictAt function
-           return true; // if return value in hasRowConflictAt function === true, return true, and end the process 
-         }          
+      let rowCount = this.attributes.n; // get number of arrays (rows) in array   
+      for (var i = 0; i < rowCount; i++) { // create a for loop for the number of arrays (rows)
+        if (this.hasRowConflictAt(i)) { // iterate throgh each array (row) run hasRowConflictAt function
+          return true; // if return value in hasRowConflictAt function === true, return true, and end the process 
+        }          
       } 
       return false; //if all rows are ok return false
-
     },
 
 
@@ -110,12 +93,27 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      let sumOf = 0; // set sum value
+      let rowCount = this.attributes.n; // get number of rows for colons
+      for (var i = 0; i < rowCount; i++) { // iterate throgh each row
+        sumOf += this.get(i)[colIndex]; // add value to sum
+      }
+      if (sumOf > 1) { // if the col sum is greater than 1,
+        return true; // return true
+      } else { //else 
+        return false; // return false
+      }
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      let colCount = this.attributes.n; // get number of columns
+      for (let i = 0; i < colCount; i++) { // loop columns
+        if (this.hasColConflictAt(i)) { // check for col conflict in each col (i)
+          return true; // if true return true
+        }
+      }
+      return false; // otherwise return false
     },
 
 
