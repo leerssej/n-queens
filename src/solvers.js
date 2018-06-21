@@ -15,36 +15,29 @@
 
 
 
-window.findNRooksSolution = function(size) {
+window.findNRooksSolution = function(size, startRow = 0, startCol = 0) {
   let solution = [];
   var board = new Board({n: size});
   for (let row = 0; row < size; row++) {
-    for (let col = 0; col < size; col++) {      
-      board.togglePiece(row, col);
-      if (board.hasAnyRooksConflicts()) {
+    for (let col = 0; col < size; col++) { 
+      if ((row >= startRow) && (col >= startCol)) { 
         board.togglePiece(row, col);
+        if (board.hasAnyRooksConflicts()) {
+          board.togglePiece(row, col);
+        }
       }
     }
   }
-    
   /*
   create a new board of size n
-
   create a row loop up to size n
   inside create col loop up to size n
-  
   toggle piece on for row, col (use set)
-  
   test for conflicts (by using helper functions)
-  
   if conflict ---> do untoggle 
-  
   othervise ----> next row col
-  
   push in the solution each board.attribute array of arrays 
-
   */
-  
   // build the array of arrays necessary for the solution
   for (let i = 0; i < size; i++) {  
     // board.togglePiece(0,0);
@@ -57,10 +50,30 @@ window.findNRooksSolution = function(size) {
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var solutionCount = 0; //fixme
+  
+  // var solution = this.findNRooksSolution(n);
+  // console.log()
+  
+  for (let row = 0; row < n; row++) {
+    for (let col = 0; col < n; col++) { 
+      if (Array.isArray(this.findNRooksSolution(n, row, col))) {
+        solutionCount += 1;
+      }
+    }
+  }
 
-  console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
-  return solutionCount;
+  /*
+  total solution
+  add index to loop in coloms
+    add index to loop in row 
+    findNRooksSolution(for all rows and columns);
+  return solution 
+  */
+  var result = Math.sqrt(solutionCount);
+     
+  console.log('Number of solutions for ' + n + ' rooks:', result);
+  return result;
 };
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
