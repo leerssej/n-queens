@@ -15,10 +15,43 @@
 
 
 
-window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
+window.findNRooksSolution = function(size) {
+  let solution = [];
+  var board = new Board({n: size});
+  for (let row = 0; row < size; row++) {
+    for (let col = 0; col < size; col++) {      
+      board.togglePiece(row, col);
+      if (board.hasAnyRooksConflicts()) {
+        board.togglePiece(row, col);
+      }
+    }
+  }
+    
+  /*
+  create a new board of size n
 
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
+  create a row loop up to size n
+  inside create col loop up to size n
+  
+  toggle piece on for row, col (use set)
+  
+  test for conflicts (by using helper functions)
+  
+  if conflict ---> do untoggle 
+  
+  othervise ----> next row col
+  
+  push in the solution each board.attribute array of arrays 
+
+  */
+  
+  // build the array of arrays necessary for the solution
+  for (let i = 0; i < size; i++) {  
+    // board.togglePiece(0,0);
+    solution.push(board.attributes[i]);
+  }
+  
+  console.log('Single solution for ' + size + ' rooks:', JSON.stringify(solution));
   return solution;
 };
 
