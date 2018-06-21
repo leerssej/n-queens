@@ -122,60 +122,83 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
-    hasMajorDiagonalConflictAt: function(offset = 0) {
+    hasMajorDiagonalConflictAt: function(offset) {
       // base case when indexes of row and col are equal
       // case 0
       // length       
       let colCount = this.attributes.n; // get number of columns
       let occupied = false; 
-      
-  
-      
       let sumOf = 0; // set sum value
       for (let i = 0; i < colCount; i++) {
-        console.log(offset, i,'idx: ', this.get(i)[i], sumOf, occupied);
-        sumOf += this.get(i)[i + offset]; // add value to sum
+        let row = i;
+        let col = i + offset;
+        
+        if(col < colCount && row < colCount && col > -1 && row > -1) {
+          sumOf += this.get(row)[col]; // add value to sum
+        }
       } 
-      
-      
-      if (sumOf > 1) { // if the col sum is greater than 1,
-        occupied = true; // return true
-      } else { //else 
-        occupied =  false; // return false
-      }
-      
-      return occupied; 
-      
-      
-      
-      // base case when index of row 1 greater than their col index
-      // case -1
-      return hasMajorDiagonalConflictAt(-1);
-      
-      // base case when index of row 1 less than their col index
-      // case 1
-      return hasMajorDiagonalConflictAt(1);
-
+      if (sumOf > 1) { // if the diagonal sum is greater than 1,
+        return true; // return true
+      } //otherwise
+      return false; 
     },
 
-    // test if any major diagonals on this board contain conflicts
+    // test if any major diagonal on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      // return false; // fixme
+      let n = this.attributes.n
+      for (let i = (-n+1); i < n; i++) { // loop diagonal
+        if (this.hasMajorDiagonalConflictAt(i)) { // check for diagonal conflict in each diagonal (i)
+          return true; // if true return true
+        }
+      }
+      return false; // otherwise return false  
     },
-
-
-
     // Minor Diagonals - go from top-right to bottom-left
     // --------------------------------------------------------------
     //
     // test if a specific minor diagonal on this board contains a conflict
-    hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+    hasMinorDiagonalConflictAt: function(offset) {
+      var sum = 0;
+      let n = this.attributes.n;
+      for (let i = offset; i > -1; i--) {
+        let row = offset - i;
+        let col = i;
+        if(col < n && row < n && col > -1 && row > -1) {
+          sum += this.get(row)[col]; // add value to sum
+        }
+      }
+      if (sum > 1) { // if the diagonal sum is greater than 1,
+        return true; // return true
+      } //otherwise
+      return false; 
+      /*
+      create sum 
+      get size of the board 
+      create a (-) loop
+      collect values of index and offset - index
+      add to sum 
+      check to see if sum is > than 1
+      if so return true
+      othervise false
+      */
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      let n = this.attributes.n;
+      for (var i = 0; i < 2*n-1; i++) {
+        if (this.hasMinorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
+      /*
+      get size of board 
+      create a positive for loop from 0 to 2n-1
+      check each diagonal at index 
+      if true return true
+      othervise false
+      */
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
