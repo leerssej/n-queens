@@ -133,7 +133,7 @@
         let row = i;
         let col = i + offset;
         
-        if(col < colCount && row < colCount && col > -1 && row > -1) {
+        if (col < colCount && row < colCount && col > -1 && row > -1) {
           sumOf += this.get(row)[col]; // add value to sum
         }
       } 
@@ -145,8 +145,8 @@
 
     // test if any major diagonal on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      let n = this.attributes.n
-      for (let i = (-n+1); i < n; i++) { // loop diagonal
+      let n = this.attributes.n;
+      for (let i = (-1 * n + 1); i < n; i++) { // loop diagonal
         if (this.hasMajorDiagonalConflictAt(i)) { // check for diagonal conflict in each diagonal (i)
           return true; // if true return true
         }
@@ -163,7 +163,7 @@
       for (let i = offset; i > -1; i--) {
         let row = offset - i;
         let col = i;
-        if(col < n && row < n && col > -1 && row > -1) {
+        if (col < n && row < n && col > -1 && row > -1) {
           sum += this.get(row)[col]; // add value to sum
         }
       }
@@ -186,7 +186,7 @@
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
       let n = this.attributes.n;
-      for (var i = 0; i < 2*n-1; i++) {
+      for (var i = 0; i < 2 * n - 1; i++) {
         if (this.hasMinorDiagonalConflictAt(i)) {
           return true;
         }
@@ -202,7 +202,6 @@
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
-
 
   });
 
