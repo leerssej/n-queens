@@ -122,13 +122,45 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
-    hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+    hasMajorDiagonalConflictAt: function(offset = 0) {
+      // base case when indexes of row and col are equal
+      // case 0
+      // length       
+      let colCount = this.attributes.n; // get number of columns
+      let occupied = false; 
+      
+  
+      
+      let sumOf = 0; // set sum value
+      for (let i = 0; i < colCount; i++) {
+        console.log(offset, i,'idx: ', this.get(i)[i], sumOf, occupied);
+        sumOf += this.get(i)[i + offset]; // add value to sum
+      } 
+      
+      
+      if (sumOf > 1) { // if the col sum is greater than 1,
+        occupied = true; // return true
+      } else { //else 
+        occupied =  false; // return false
+      }
+      
+      return occupied; 
+      
+      
+      
+      // base case when index of row 1 greater than their col index
+      // case -1
+      return hasMajorDiagonalConflictAt(-1);
+      
+      // base case when index of row 1 less than their col index
+      // case 1
+      return hasMajorDiagonalConflictAt(1);
+
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      // return false; // fixme
     },
 
 
